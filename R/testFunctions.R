@@ -1,3 +1,4 @@
+# testFunctions.R
 #' testScalar
 #'
 #' Completes all of the basic tests for a single (scalar) value (that is, a vector of length 1), where the user can pass in the full environments from student and instructor solutions
@@ -218,7 +219,7 @@ testDataFrame <- function(variableName,
                           check_size=TRUE, size_error_msg=NULL,
                           check_attributes=FALSE, attributes_error_msg=NULL,
                           check_class=TRUE, class_error_msg=NULL,
-                          col_order=TRUE){
+                          col_order=TRUE, ignore_grouping=TRUE) {
 
   correctArgsTest(variableName, student_environment, instructor_environment)
 
@@ -231,6 +232,14 @@ testDataFrame <- function(variableName,
   # Unit tests
   if (isTRUE(check_present)) {
     variableExistsTest(variableName, variables, error_message=present_error_msg)
+  }
+
+  if (isTRUE(ignore_grouping)) {
+    safe_ungroup <- function(x) {
+      if ("grouped_df" %in% class(x)) ungroup(x) else x
+    }
+    studentSoln <- safe_ungroup(studentSoln)
+    actualSoln  <- safe_ungroup(actualSoln)
   }
 
   if (isTRUE(check_size)) {
@@ -413,6 +422,13 @@ testPlot <- function(variableName,
     present_error_msg <- paste(variableName, "is not present in the student solution.")
     variableExistsTest(variableName, variables, error_message=present_error_msg)
   }
+
+  if (!is.null(studentSoln) && !inherits(studentSoln, "gg")) {
+    message(paste("Error:", variableName, "should be a ggplot object but is",
+                  class(studentSoln)[1]))
+    return(invisible(NULL))  # Exit gracefully
+  }
+
   if (isTRUE(check_plot_type)) {
     if (isTRUE("boxplot" %in% plot_type)){
       expected_geom <- c(expected_geom, "GeomBoxplot")

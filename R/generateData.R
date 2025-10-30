@@ -1,3 +1,4 @@
+#generateData.R
 library(utils)
 
 # Purpose: Randomized data generation

@@ -1,3 +1,4 @@
+# test_environment_loaded.R
 library(testthat)
 library(cli)
 library(utils)
