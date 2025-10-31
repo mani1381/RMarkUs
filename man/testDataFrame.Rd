@@ -18,7 +18,8 @@ testDataFrame(
   attributes_error_msg = NULL,
   check_class = TRUE,
   class_error_msg = NULL,
-  col_order = TRUE
+  col_order = TRUE,
+  ignore_grouping = TRUE
 )
 }
 \arguments{
@@ -60,6 +61,9 @@ Default is NULL and will use preset error message.}
 
 \item{col_order}{Boolean indicating if order matters in correctness.
 Default is FALSE}
+
+\item{ignore_grouping}{Boolean indicating whether to ignore grouping structure in dataframes (tibbles).
+Default is TRUE.}
 }
 \value{
 Error message if one exists, otherwise will print that every test has passed.

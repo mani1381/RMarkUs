@@ -209,6 +209,8 @@ testVector <- function(variableName,
 #' Default is NULL and will use preset error message.
 #' @param col_order Boolean indicating if order matters in correctness.
 #' Default is FALSE
+#' @param ignore_grouping Boolean indicating whether to ignore grouping structure in dataframes (tibbles).
+#' Default is TRUE.
 #' @return Error message if one exists, otherwise will print that every test has passed.
 #' @export
 testDataFrame <- function(variableName,
